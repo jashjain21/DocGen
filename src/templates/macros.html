@@ -1,0 +1,16 @@
+{% macro format_currency(value) -%}
+${{ "%.2f"|format(value) }}
+{%- endmacro %}
+
+{% macro format_address(address) -%}
+{{ address|replace('\n', '<br>') }}
+{%- endmacro %}
+
+{% macro table_row(item, index) -%}
+<tr style="background-color: {% if index % 2 == 0 %}var(--table-row-even){% else %}var(--table-row-odd){% endif %};">
+    <td style="border: 1px solid #ddd; padding: 8px;">{{ item.description }}</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ item.quantity }}</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">{{ format_currency(item.unit_price) }}</td>
+    <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">{{ format_currency(item.quantity * item.unit_price) }}</td>
+</tr>
+{%- endmacro %}
